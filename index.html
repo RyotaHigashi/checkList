@@ -19,14 +19,14 @@
       <li v-for='(article,index) in articles' v-if='isActive===index'>
 
         <div class="article">
-          <div>
-            <div v-on:click='headderActive' v-if='header'>
-              <span class="header-button">-</span>
-            </div>
-            <div v-on:click='headderActive' v-else>
-              <span class="header-button">+</span>
-            </div>
+
+          <div v-if='header' v-on:click='headderActive' class="header-button">
+            <span><i class="fas fa-angle-up"></i></span>
           </div>
+          <div v-else v-on:click='headderActive' class="header-button">
+            <span><i class="fas fa-angle-down"></i></span>
+          </div>
+
           <div class="headder" v-if='header'> 
             <div class="tab_name">
                   <label for="tab">Tab Name：</label>
@@ -53,15 +53,17 @@
                 <li>♥♥♥:<div class="sample"><span class="red"></span></div></li>
              </div>
             </ul>
-         </div>
-        </div>
+           </div>
+          </div>
 
-          <label for="sort" class="sort">並び替え:</label>
+          <div class="select">
+            <label for="sort" class="sort">並び替え:</label>
             <select v-model='sort[index]' id="sort">
               <option>名前順</option>
               <option>重要度順</option>
               <option>未対応順</option>
             </select>
+          </div>
 
             <div class="items">
               <div class='item' v-for='(item,num) in items[index]' draggable v-on:dragstart="dragList($event,num)" v-on:drop="dropList($event,index,num)" @dragover.prevent @dragenter.prevent>
@@ -78,98 +80,10 @@
             </div>
           </div>
       </li>
-
-      <!-- <li v-else-if='isActive==="B"'>
-        <div class="tab-name">
-          <label for="tabB">Tab Name：</label>
-          <input id="tabB" type="text" v-model='BtabName'>
-        </div>
-        <div class="article">
-          <div class="add_contentes">
-            <label for="tabB">Add Item：</label>
-            <input id="tabB" type="text" v-model='inputBitem'>
-            <label for="hearts">必要度:</label>
-            <select v-model='hearts' id="hearts">
-              <option selected>&hearts;</option>
-              <option>&hearts;&hearts;</option>
-              <option>&hearts;&hearts;&hearts;</option>
-            </select>
-            <button v-on:click='addItem'>Add</button>
-          </div>
-          <ul>
-            <li>♥・・・・・<div class="sample"><span class="green"></span></div></li>
-            <li>♥♥・・・・<div class="sample"><span class="yellow"></span></div></li>
-            <li>♥♥♥・・・<div class="sample"><span class="red"></span></div></li>
-          </ul>
-
-          <label for="sort">並び替え:</label>
-          <select v-model='sort' id="sort">
-            <option>名前順</option>
-            <option>必要度順</option>
-            <option>未対応順</option>
-          </select>
-      
-          <div class='item' v-for='(item,index) in Bitems' draggable v-on:dragstart="dragList($event,index)" v-on:drop="dropList($event, index)" @dragover.prevent @dragenter.prevent>
-            <div class="inner-left" v-bind:class='[{innerLeftDone:item.check},item.heart]' v-on:click='checkItem(index)'></div>
-            <div class="inner-right" v-bind:class='{innerRightDone:item.check}' v-on:click='checkItem(index)'>{{item.item}}</div>
-            <div class="delete" v-on:click='deleteItem(index)'>×</div>
-          </div>
-      
-          <button v-on:click='allItemsClear'>All Clear</button>
-          <button v-on:click='allItemsDelete'>All Delete</button>
-          <button v-on:click='defaultItems'>default</button>
-        </div>
-      </li>
-
-      <li v-else-if='isActive==="C"'>
-        <div class="tab-name">
-          <label for="tabC">Tab Name：</label>
-          <input id="tabC" type="text" v-model='CtabName'>
-        </div>
-        <div class="article">
-          <div class="add_contentes">
-            <label for="tabC">Add Item：</label>
-            <input id="tabC" type="text" v-model='inputCitem'>
-            <label for="hearts">重要度:</label>
-            <select v-model='hearts' id="hearts">
-              <option selected>&hearts;</option>
-              <option>&hearts;&hearts;</option>
-              <option>&hearts;&hearts;&hearts;</option>
-            </select>
-            <button v-on:click='addItem'>Add</button>
-          </div>
-          <ul>
-            <li>♥・・・・・<div class="sample"><span class="green"></span></div></li>
-            <li>♥♥・・・・<div class="sample"><span class="yellow"></span></div></li>
-            <li>♥♥♥・・・<div class="sample"><span class="red"></span></div></li>
-          </ul>
-
-          <label for="sort">並び替え:</label>
-          <select v-model='sort' id="sort">
-            <option>名前順</option>
-            <option>重要度順</option>
-            <option>未対応順</option>
-          </select>
-      
-          <div class='item' v-for='(item,index) in Citems' draggable v-on:dragstart="dragList($event,index)" v-on:drop="dropList($event, index)" @dragover.prevent @dragenter.prevent>
-            <div class="inner-left" v-bind:class='[{innerLeftDone:item.check},item.heart]' v-on:click='checkItem(index)'></div>
-            <div class="inner-right" v-bind:class='{innerRightDone:item.check}' v-on:click='checkItem(index)'>{{item.item}}</div>
-            <div class="delete" v-on:click='deleteItem(index)'>×</div>
-          </div>
-      
-          <button v-on:click='allItemsClear'>All Clear</button>
-          <button v-on:click='allItemsDelete'>All Delete</button>
-          <button v-on:click='defaultItems'>default</button>
-        </div>
-      </li> -->
-    </ul>
-    <pre>
-      {{$data}}
-    </pre>
   </div>
 
   
-  
+  <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
   <script src="main.js"></script>
 </body>
